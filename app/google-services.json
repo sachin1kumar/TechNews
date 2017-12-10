@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "659867165070",
+    "firebase_url": "https://short-tech-news.firebaseio.com",
+    "project_id": "short-tech-news",
+    "storage_bucket": "short-tech-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659867165070:android:c510ad8b325da12f",
+        "android_client_info": {
+          "package_name": "com.tech.ashort.short_technews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659867165070-ss4jq34atk50pa7foluter3sehk6ug37.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tech.ashort.short_technews",
+            "certificate_hash": "c3c691db39553bc2830f29ff0fd15cf5b22097a5"
+          }
+        },
+        {
+          "client_id": "659867165070-9ugkcgo5v8ib5htpl5vl9ch7rema8m0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8ZLI1XTFIPopLq9yUuEBI0vjwpJerHIE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659867165070-9ugkcgo5v8ib5htpl5vl9ch7rema8m0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
