@@ -13,31 +13,29 @@ import com.google.android.gms.tasks.OnSuccessListener
  */
 class FirebaseInit {
 
-     companion object {
+    private var remoteConfig: FirebaseRemoteConfig? = null
 
-         private var remoteConfig: FirebaseRemoteConfig? = null
+    init {
+        val remoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build()
 
-         fun initFirebaseAndgetNews(): String {
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+        remoteConfig!!.setConfigSettings(remoteConfigSettings);
+        remoteConfig!!.setDefaults(R.xml.remote_config);
+    }
 
-             val remoteConfigSettings = FirebaseRemoteConfigSettings.Builder()
-                     .setDeveloperModeEnabled(BuildConfig.DEBUG)
-                     .build()
+    fun getNews(): String {
+        var cacheExpiration: Long = 0
+        if (remoteConfig!!.getInfo().configSettings.isDeveloperModeEnabled) {
+            cacheExpiration = 0
+        }
 
-             remoteConfig = FirebaseRemoteConfig.getInstance()
-             remoteConfig!!.setConfigSettings(remoteConfigSettings);
-             remoteConfig!!.setDefaults(R.xml.remote_config);
+        remoteConfig!!.fetch(0).addOnSuccessListener {
+            Log.e("Success", "Fetch Succeeded")
+            remoteConfig!!.activateFetched()
+        }
 
-             var cacheExpiration: Long = 0
-             if (remoteConfig!!.getInfo().configSettings.isDeveloperModeEnabled) {
-                 cacheExpiration = 0
-             }
-
-             remoteConfig!!.fetch(0).addOnSuccessListener {
-                 Log.e("Success", "Fetch Succeeded")
-                 remoteConfig!!.activateFetched()
-             }
-
-             return remoteConfig!!.getString("newstoday")
-         }
-     }
+        return remoteConfig!!.getString("newstoday")
+    }
 }
