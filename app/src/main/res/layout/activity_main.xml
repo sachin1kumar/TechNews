@@ -21,10 +21,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabTextColor="#ffffff"
             android:layout_gravity="center"
-            app:tabMode="fixed" />
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabTextColor="#ffffff" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -34,11 +34,11 @@
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/recyclerView"
-            android:background="#dee4ed"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dee4ed" />
 
     </android.support.v4.widget.NestedScrollView>
 
