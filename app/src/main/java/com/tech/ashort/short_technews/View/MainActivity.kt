@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         var recyclerView : RecyclerView = findViewById(R.id.recyclerView)
         context = this
-        adapter = MyAdapter(listOfNews as ArrayList<String>, context as MainActivity)
+        adapter = MyAdapter(listOfNews as ArrayList<String>, context as MainActivity,
+                viewModel)
 
         var mLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager
