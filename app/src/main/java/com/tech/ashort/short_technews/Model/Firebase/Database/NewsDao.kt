@@ -13,8 +13,8 @@ import android.arch.persistence.room.Query
 @Dao
 interface NewsDao {
 
-    @Query("SELECT * FROM BookmarkNews ORDER BY newsId Desc")
-    fun getNews() : LiveData<List<BookmarkNews>>
+    @Query("SELECT * FROM BookmarkNews")
+    fun getNews() : List<BookmarkNews>
 
     @Insert(onConflict = IGNORE)
     fun insertNews(bookmarkNews: BookmarkNews)

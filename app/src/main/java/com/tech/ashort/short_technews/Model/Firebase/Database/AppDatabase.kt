@@ -10,30 +10,29 @@ import com.tech.ashort.short_technews.Model.Firebase.Database.AppDatabase.Compan
  * Created by sachin on 18/12/17.
  */
 
-@Database(entities = arrayOf(BookmarkNews::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(BookmarkNews::class), version = 2, exportSchema = false)
 public abstract class AppDatabase : RoomDatabase() {
 
+    public abstract fun NewsModel(): NewsDao
+
     companion object {
+
         private var INSTANCE:AppDatabase?=null
-    }
 
-    public abstract fun getNewsData(): NewsDao
-
-    init {
-         fun getDatabase(context: Context) : AppDatabase{
+        fun getDatabase(context: Context) : AppDatabase{
             if (INSTANCE==null){
                 INSTANCE = Room.databaseBuilder(context, AppDatabase::class.java,"NewsDB")
-                        .allowMainThreadQueries().build()
+                        .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
+                        .build()
             }
             return INSTANCE as AppDatabase
-         }
-    }
+        }
 
-    init {
         fun destroyInstance(){
             INSTANCE=null
         }
-    }
 
+    }
 
 }

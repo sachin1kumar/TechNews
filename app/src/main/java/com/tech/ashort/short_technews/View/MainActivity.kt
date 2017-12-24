@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.widget.TextView
+import com.tech.ashort.short_technews.Model.Firebase.Database.AppDatabase
+import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
 import com.tech.ashort.short_technews.Model.Firebase.FirebaseInit
 import com.tech.ashort.short_technews.R
 import com.tech.ashort.short_technews.View.Adapter.MyAdapter
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private var adapter: MyAdapter? = null
     private var context: Context? = null
     private var mTabLayout: TabLayout? = null
+    private var mAppDatabase: AppDatabase? = null
+    private var mlistOfsavedNews :List<BookmarkNews>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +43,17 @@ class MainActivity : AppCompatActivity() {
 
         setHeadingOnTab()
 
-        mNews = (viewModel as MyViewModel).getNewsfromFirebase()
-        listOfNews = mNews.split("*")
+       // mNews = (viewModel as MyViewModel).getNewsfromFirebase()
+
+        //getting reference for Room Database...
+       // mAppDatabase = (viewModel as MyViewModel).databaseInstance
+       // mlistOfsavedNews = (viewModel as MyViewModel).newsfromDB
+
+        //listOfNews = mNews.split("*")
 
         var recyclerView : RecyclerView = findViewById(R.id.recyclerView)
         context = this
-        adapter = MyAdapter(listOfNews as ArrayList<String>, context as MainActivity,
-                viewModel)
+        adapter = MyAdapter(context as MainActivity,viewModel as ViewModel)
 
         var mLayoutManager : RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = mLayoutManager

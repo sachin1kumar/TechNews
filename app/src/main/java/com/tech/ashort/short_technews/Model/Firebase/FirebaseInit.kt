@@ -6,6 +6,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.tech.ashort.short_technews.R
 import android.R.attr.button
 import android.util.Log
+import android.widget.Toast
 import com.google.android.gms.tasks.OnSuccessListener
 
 /**
@@ -26,12 +27,12 @@ class FirebaseInit {
     }
 
     fun getNews(): String {
-        var cacheExpiration: Long = 0
-        if (remoteConfig!!.getInfo().configSettings.isDeveloperModeEnabled) {
+        var cacheExpiration: Long = 3600
+        /*if (remoteConfig!!.getInfo().configSettings.isDeveloperModeEnabled) {
             cacheExpiration = 0
-        }
+        }*/
 
-        remoteConfig!!.fetch(0).addOnSuccessListener {
+        remoteConfig!!.fetch(cacheExpiration).addOnSuccessListener {
             Log.e("Success", "Fetch Succeeded")
             remoteConfig!!.activateFetched()
         }
