@@ -10,7 +10,7 @@ import com.tech.ashort.short_technews.Model.Firebase.Database.AppDatabase.Compan
  * Created by sachin on 18/12/17.
  */
 
-@Database(entities = arrayOf(BookmarkNews::class), version = 2, exportSchema = false)
+@Database(entities = arrayOf(BookmarkNews::class), version = 3, exportSchema = false)
 public abstract class AppDatabase : RoomDatabase() {
 
     public abstract fun NewsModel(): NewsDao

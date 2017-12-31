@@ -10,14 +10,7 @@ import org.jetbrains.annotations.NotNull
 
 @Entity
 class BookmarkNews {
-
-    //@NotNull
     @PrimaryKey
-    public var news:String=""
-
-
-    public var newsId:Int=0
-
-
-
+    var news:String=""
+    var date:String=""
 }

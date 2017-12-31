@@ -21,13 +21,13 @@ public class MyViewModel extends AndroidViewModel {
     private AppDatabase mappDatabase;
     public List<BookmarkNews> savedNews;
 
-    public MyViewModel(@NonNull Application application) {
+    public MyViewModel(@NonNull Application application){
         super(application);
         firebaseInit = new FirebaseInit();
         mappDatabase = AppDatabase.Companion.getDatabase(application);
     }
 
-    public String getNewsfromFirebase() {
+    public String getNewsfromFirebase(){
         return firebaseInit.getNews();
     }
 
@@ -35,8 +35,13 @@ public class MyViewModel extends AndroidViewModel {
         return mappDatabase;
     }*/
 
-    public List<BookmarkNews> getNewsfromDB() {
+    public List<BookmarkNews> getNewsfromDB(){
         savedNews = mappDatabase.NewsModel().getNews();
+        return savedNews;
+    }
+
+    public List<BookmarkNews> getSortedNewsfromDB(){
+        savedNews = mappDatabase.NewsModel().getSortedNews();
         return savedNews;
     }
 
@@ -44,4 +49,7 @@ public class MyViewModel extends AndroidViewModel {
         mappDatabase.NewsModel().insertNews(bookmarkNews);
     }
 
+    public void deleteNews(String news){
+        mappDatabase.NewsModel().deleteNews(news);
+    }
 }
