@@ -11,8 +11,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.tech.ashort.short_technews.Model.Firebase.Database.AppDatabase
-import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
 import com.tech.ashort.short_technews.R
 import com.tech.ashort.short_technews.View.Adapter.MyAdapter
 import com.tech.ashort.short_technews.ViewModel.MyViewModel
@@ -22,13 +20,9 @@ class MainActivity : AppCompatActivity(){
 
     private var viewModel: ViewModel? = null
     private var mToolbar: Toolbar? = null
-    private var mNews: String = ""
-    private var listOfNews: List<String>? = null
     private var adapter: MyAdapter? = null
     private var context: Context? = null
     private var mTabLayout: TabLayout? = null
-    private var mAppDatabase: AppDatabase? = null
-    private var mlistOfsavedNews: List<BookmarkNews>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
 import com.tech.ashort.short_technews.R
+import com.tech.ashort.short_technews.View.CustomDialog
 import com.tech.ashort.short_technews.ViewModel.MyViewModel
 import java.util.*
 
@@ -19,7 +20,6 @@ import java.util.*
 class BookMarkAdapter(var context: Context, var viewModel: ViewModel) :
         RecyclerView.Adapter<BookMarkAdapter.BookMarkViewHolder>() {
     var savedOn: String = "Saved On : "
-    var date: Date = Date()
     var mFilteredList: ArrayList<BookmarkNews>?= (viewModel as MyViewModel).sortedNewsfromDB as ArrayList<BookmarkNews>?
 
     class BookMarkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,10 +29,10 @@ class BookMarkAdapter(var context: Context, var viewModel: ViewModel) :
     }
 
     override fun onBindViewHolder(holder: BookMarkViewHolder, position: Int) {
-        holder!!.newsTextView!!.setText(mFilteredList!!.get(position).news)
-        holder!!.date!!.setText(savedOn+ mFilteredList!!.get(position).date)
+        holder.newsTextView!!.setText(mFilteredList!!.get(position).news)
+        holder.date!!.setText(savedOn+ mFilteredList!!.get(position).date)
 
-        holder!!.delete!!.setOnClickListener(View.OnClickListener { v: View? ->
+        holder.delete!!.setOnClickListener(View.OnClickListener { v: View? ->
             (viewModel as MyViewModel).deleteNews(holder.newsTextView!!.text.toString())
             if (mFilteredList!!.size >0)
                 mFilteredList!!.removeAt(position)
@@ -41,6 +41,10 @@ class BookMarkAdapter(var context: Context, var viewModel: ViewModel) :
     }
 
     override fun getItemCount(): Int {
+        if(mFilteredList!!.size == 0){
+            //Show Custom Dialog
+            CustomDialog(context).show()
+        }
         return mFilteredList!!.size
     }
 

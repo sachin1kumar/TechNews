@@ -15,16 +15,13 @@ import com.tech.ashort.short_technews.ViewModel.MyViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 /**
  * Created by sachin on 17/12/17.
  */
 class MyAdapter(var context: Context, var viewModel: ViewModel) :
         RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
-    val TAG: String = "MyAdapter"
     var newsInCard: String = ""
-    var newsFromDB: String = ""
     var newsFromfirebase: String? = (viewModel as MyViewModel).getNewsfromFirebase()
     var mFilteredList: List<String>? = newsFromfirebase!!.split("*")
     var date: Date = Date()
@@ -56,7 +53,7 @@ class MyAdapter(var context: Context, var viewModel: ViewModel) :
                 Toast.makeText(context, "It is already Bookmarked. Kindly remove it from Bookmark section above.", Toast.LENGTH_SHORT)
                         .show()
             } else {
-                Toast.makeText(context, "Star Clicked" + holder.appTextView.text.toString()
+                Toast.makeText(context, "News has been bookmarked !!"
                         , Toast.LENGTH_SHORT).show()
                 var bookmarkNews = BookmarkNews()
                 selectedNews = holder.appTextView.text.toString()
@@ -74,14 +71,9 @@ class MyAdapter(var context: Context, var viewModel: ViewModel) :
             strNews = mFilteredList!!.get(position)
         }
         if (strNews.equals(selectedNews, true)) {
-            var sdk: Int = android.os.Build.VERSION.SDK_INT;
-            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                holder.mBookmark!!.setBackgroundDrawable(context.getResources().getDrawable(android.R.drawable.star_big_on));
-            } else {
-                holder.mBookmark!!.setBackground(context.getResources().getDrawable(android.R.drawable.star_big_on));
-            }
-            // notifyDataSetChanged()
+            holder.mBookmark!!.setBackground(context.getResources().getDrawable(android.R.drawable.star_big_on));
         }
+        // notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
