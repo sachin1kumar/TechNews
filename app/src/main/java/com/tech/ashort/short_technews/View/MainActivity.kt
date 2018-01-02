@@ -3,7 +3,9 @@ package com.tech.ashort.short_technews.View
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -76,5 +78,18 @@ class MainActivity : AppCompatActivity(){
         mTabLayout!!.addTab(mTabLayout!!.newTab().setText("Today's Latest Tech News"))
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        openMainActivity()
+    }
 
+    fun openMainActivity(){
+        val handler = Handler()
+        val run = Runnable {
+            val `in` = Intent(this, MainActivity::class.java)
+            `in`.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(`in`)
+        }
+        handler.post(run)
+    }
 }

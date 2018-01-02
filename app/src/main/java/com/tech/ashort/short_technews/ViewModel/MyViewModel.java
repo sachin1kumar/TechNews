@@ -3,6 +3,7 @@ package com.tech.ashort.short_technews.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.tech.ashort.short_technews.Model.Firebase.Database.AppDatabase;
@@ -27,8 +28,8 @@ public class MyViewModel extends AndroidViewModel {
         mappDatabase = AppDatabase.Companion.getDatabase(application);
     }
 
-    public String getNewsfromFirebase(){
-        return firebaseInit.getNews();
+    public String getNewsfromFirebase(Context context){
+        return firebaseInit.getNews(context);
     }
 
   /*  public AppDatabase getDatabaseInstance() {

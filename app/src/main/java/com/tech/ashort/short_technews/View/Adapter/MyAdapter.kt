@@ -22,7 +22,7 @@ class MyAdapter(var context: Context, var viewModel: ViewModel) :
         RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     var newsInCard: String = ""
-    var newsFromfirebase: String? = (viewModel as MyViewModel).getNewsfromFirebase()
+    var newsFromfirebase: String? = (viewModel as MyViewModel).getNewsfromFirebase(context)
     var mFilteredList: List<String>? = newsFromfirebase!!.split("*")
     var date: Date = Date()
     var simpleDateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
