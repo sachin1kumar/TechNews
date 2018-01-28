@@ -32,10 +32,6 @@ public class MyViewModel extends AndroidViewModel {
         return firebaseInit.getNews(context);
     }
 
-  /*  public AppDatabase getDatabaseInstance() {
-        return mappDatabase;
-    }*/
-
     public List<BookmarkNews> getNewsfromDB(){
         savedNews = mappDatabase.NewsModel().getNews();
         return savedNews;

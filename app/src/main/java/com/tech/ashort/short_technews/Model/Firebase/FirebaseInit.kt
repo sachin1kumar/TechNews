@@ -51,7 +51,7 @@ class FirebaseInit {
         mNews = remoteConfig!!.getString("newstoday")
         val run = Runnable {
             remoteConfig!!.fetch(cacheExpiration).addOnSuccessListener {
-                Log.e("Success", "Fetch Succeeded"+readSharedPref())
+                //Log.e("Success", "Fetch Succeeded"+readSharedPref())
                 if(readSharedPref()==0){
                     openMainActivity()
                    writeToSharedPref()
@@ -60,7 +60,8 @@ class FirebaseInit {
             }
         }
         handler.post(run)
-        Log.e("SuccessStr:",remoteConfig!!.getString("newstoday"))
+        mProgressBar!!.dismiss()
+        //Log.e("SuccessStr:",remoteConfig!!.getString("newstoday"))
         return mNews
     }
 

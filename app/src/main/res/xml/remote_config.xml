@@ -2,6 +2,6 @@
 <defaultsMap>
     <entry>
         <key>newstoday</key>
-        <value>Hello Offline!</value>
+        <value>Please wait fetching the news for you..</value>
     </entry>
 </defaultsMap>

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
                 android:textSize="20dp"
-                android:text="testingffdddddffffffffffffffffffffffffffffdfdfdfdfdf"
+                android:text="testing"
                 android:textColor="@color/colorPrimaryDark" />
 
         </RelativeLayout>
