@@ -20,7 +20,11 @@ import java.util.*
 class BookMarkAdapter(var context: Context, var viewModel: ViewModel) :
         RecyclerView.Adapter<BookMarkAdapter.BookMarkViewHolder>() {
     var savedOn: String = "Saved On : "
-    var mFilteredList: ArrayList<BookmarkNews>?= (viewModel as MyViewModel).sortedNewsfromDB as ArrayList<BookmarkNews>?
+    var mFilteredList: ArrayList<BookmarkNews>?= null
+
+    fun setNewsFromDB(mlistOfNews: ArrayList<BookmarkNews>?) {
+        mFilteredList = mlistOfNews
+    }
 
     class BookMarkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var newsTextView: TextView? = itemView.findViewById(R.id.news)

@@ -3,6 +3,7 @@ package com.tech.ashort.short_technews.ViewModel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -20,7 +21,9 @@ public class MyViewModel extends AndroidViewModel {
 
     private FirebaseInit firebaseInit;
     private AppDatabase mappDatabase;
-    public List<BookmarkNews> savedNews;
+    private MutableLiveData<String> mCurrentNews;
+    private MutableLiveData<List<BookmarkNews>> mMutRef;
+
 
     public MyViewModel(@NonNull Application application){
         super(application);
@@ -28,18 +31,24 @@ public class MyViewModel extends AndroidViewModel {
         mappDatabase = AppDatabase.Companion.getDatabase(application);
     }
 
-    public String getNewsfromFirebase(Context context){
-        return firebaseInit.getNews(context);
+    public MutableLiveData<String> getNewsfromFirebase(Context context){
+        if (mCurrentNews==null){
+            mCurrentNews = new MutableLiveData<>();
+        }
+        mCurrentNews.setValue(firebaseInit.getNews(context));
+        return mCurrentNews;
     }
 
-    public List<BookmarkNews> getNewsfromDB(){
-        savedNews = mappDatabase.NewsModel().getNews();
-        return savedNews;
+    public MutableLiveData<List<BookmarkNews>> getNewsfromDB(){
+        MutableLiveData<List<BookmarkNews>> refLive = getMutableRef();
+        refLive.setValue(mappDatabase.NewsModel().getNews());
+        return refLive;
     }
 
-    public List<BookmarkNews> getSortedNewsfromDB(){
-        savedNews = mappDatabase.NewsModel().getSortedNews();
-        return savedNews;
+    public MutableLiveData<List<BookmarkNews>> getSortedNewsfromDB(){
+        MutableLiveData<List<BookmarkNews>> refLive = getMutableRef();
+        refLive.setValue(mappDatabase.NewsModel().getSortedNews());
+        return refLive;
     }
 
     public void storeNews(BookmarkNews bookmarkNews){
@@ -48,5 +57,12 @@ public class MyViewModel extends AndroidViewModel {
 
     public void deleteNews(String news){
         mappDatabase.NewsModel().deleteNews(news);
+    }
+
+    private MutableLiveData<List<BookmarkNews>> getMutableRef(){
+        if (mMutRef==null){
+            mMutRef = new MutableLiveData<>();
+        }
+        return mMutRef;
     }
 }

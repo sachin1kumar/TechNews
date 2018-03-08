@@ -11,12 +11,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
 import com.tech.ashort.short_technews.R
 import com.tech.ashort.short_technews.View.Adapter.MyAdapter
 import com.tech.ashort.short_technews.ViewModel.MyViewModel
-
 
 class MainActivity : AppCompatActivity(){
 
@@ -25,6 +26,9 @@ class MainActivity : AppCompatActivity(){
     private var adapter: MyAdapter? = null
     private var context: Context? = null
     private var mTabLayout: TabLayout? = null
+    private var mNewsInStr: String? = ""
+    private var mlistOfsavedNews: List<BookmarkNews>? =null
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +42,16 @@ class MainActivity : AppCompatActivity(){
 
         setHeadingOnTab()
 
-        var recyclerView: RecyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         context = this
-        adapter = MyAdapter(context as MainActivity, viewModel as ViewModel)
 
-        var mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.itemAnimator
-        recyclerView.isNestedScrollingEnabled = false
-        recyclerView.adapter = adapter
+
+        (viewModel as MyViewModel).getNewsfromFirebase(context).observe(this,android.arch.lifecycle.Observer{
+             mNewsInStr = it
+             Log.e("LiveData:Observer:",mNewsInStr)
+             doDboperation()
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,5 +96,27 @@ class MainActivity : AppCompatActivity(){
             startActivity(`in`)
         }
         handler.post(run)
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
+    fun doDboperation(){
+        (viewModel as MyViewModel).getNewsfromDB().observe(this,android.arch.lifecycle.Observer{
+            mlistOfsavedNews = it
+            Log.e("LiveData:Observer:DB",mNewsInStr)
+            adapter = MyAdapter(context as MainActivity, viewModel as ViewModel)
+            adapter!!.setNews(mNewsInStr)
+            adapter!!.setNewsFromDB(mlistOfsavedNews)
+
+            var mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+            recyclerView!!.layoutManager = mLayoutManager
+            recyclerView!!.itemAnimator
+            recyclerView!!.isNestedScrollingEnabled = false
+            recyclerView!!.adapter = adapter
+        })
     }
 }

@@ -11,9 +11,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.*
+import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
 import com.tech.ashort.short_technews.R
 import com.tech.ashort.short_technews.View.Adapter.BookMarkAdapter
+import com.tech.ashort.short_technews.ViewModel.MyViewModel
 
 /**
  * Created by sachin on 31/12/17.
@@ -28,6 +31,8 @@ class BookMarkFragment : Fragment() {
     private var mToolbar: Toolbar? = null
     private var mProgressBar: ProgressDialog?= null
     private var mRecyclerView: RecyclerView?= null
+    private var mlistOfsavedNews: ArrayList<BookmarkNews>? =null
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -57,6 +62,7 @@ class BookMarkFragment : Fragment() {
         mProgressBar!!.setMessage("Please wait...")
         mProgressBar!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
 
+
         (activity as AppCompatActivity).setSupportActionBar(mToolbar)
         mToolbar!!.setTitle("Bookmark")
         mToolbar!!.navigationIcon = mContext!!.resources.getDrawable(R.drawable.abc_ic_ab_back_material)
@@ -65,14 +71,19 @@ class BookMarkFragment : Fragment() {
             openMainActivity()
         })
 
-        var recyclerView: RecyclerView = view!!.findViewById(R.id.bookmarkrecView)
-        mAdapter = BookMarkAdapter(mContext!!, mViewModel!!)
 
-        var mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.itemAnimator
-        recyclerView.isNestedScrollingEnabled = false
-        recyclerView.adapter = mAdapter
+        (mViewModel as MyViewModel).getSortedNewsfromDB().observe(this,android.arch.lifecycle.Observer{
+            mlistOfsavedNews = it as ArrayList<BookmarkNews>?
+            var recyclerView: RecyclerView = view!!.findViewById(R.id.bookmarkrecView)
+            mAdapter = BookMarkAdapter(mContext!!, mViewModel!!)
+            mAdapter!!.setNewsFromDB(mlistOfsavedNews)
+
+            var mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+            recyclerView.layoutManager = mLayoutManager
+            recyclerView.itemAnimator
+            recyclerView.isNestedScrollingEnabled = false
+            recyclerView.adapter = mAdapter
+        })
 
         return view
     }
