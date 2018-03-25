@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(){
 
         (viewModel as MyViewModel).getNewsfromFirebase(context).observe(this,android.arch.lifecycle.Observer{
              mNewsInStr = it
-             Log.e("LiveData:Observer:",mNewsInStr)
+             //Log.e("LiveData:Observer:",mNewsInStr)
              doDboperation()
         })
 
@@ -101,13 +101,13 @@ class MainActivity : AppCompatActivity(){
 
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        finishAffinity()
     }
 
     fun doDboperation(){
         (viewModel as MyViewModel).getNewsfromDB().observe(this,android.arch.lifecycle.Observer{
             mlistOfsavedNews = it
-            Log.e("LiveData:Observer:DB",mNewsInStr)
+            //Log.e("LiveData:Observer:DB",mNewsInStr)
             adapter = MyAdapter(context as MainActivity, viewModel as ViewModel)
             adapter!!.setNews(mNewsInStr)
             adapter!!.setNewsFromDB(mlistOfsavedNews)
