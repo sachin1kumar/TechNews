@@ -14,10 +14,13 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
 import com.tech.ashort.short_technews.Model.Firebase.Database.BookmarkNews
-import com.tech.ashort.short_technews.R
 import com.tech.ashort.short_technews.View.Adapter.MyAdapter
 import com.tech.ashort.short_technews.ViewModel.MyViewModel
+import android.net.Uri
+import com.tech.ashort.short_technews.R
+
 
 class MainActivity : AppCompatActivity(){
 
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity(){
     private var mNewsInStr: String? = ""
     private var mlistOfsavedNews: List<BookmarkNews>? =null
     private var recyclerView: RecyclerView? = null
+    private var privacypolicy: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class MainActivity : AppCompatActivity(){
         setHeadingOnTab()
 
         recyclerView = findViewById(R.id.recyclerView)
+        privacypolicy = findViewById(R.id.privacy_policy)
         context = this
 
 
@@ -51,6 +56,13 @@ class MainActivity : AppCompatActivity(){
              //Log.e("LiveData:Observer:",mNewsInStr)
              doDboperation()
         })
+
+        privacypolicy!!.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://sites.google.com/view/sachinkmr/home"))
+            startActivity(browserIntent)
+
+        }
 
     }
 
